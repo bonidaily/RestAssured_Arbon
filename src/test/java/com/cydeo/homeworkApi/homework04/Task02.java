@@ -1,11 +1,13 @@
 package com.cydeo.homeworkApi.homework04;
 
+import com.cydeo.pojo.homework.task1.MRData;
 import com.cydeo.pojo.homework.task2.ConstructorPojo;
 import com.cydeo.pojo.homework.task2.Constructors;
 import com.cydeo.utilities.FormulaTestBase;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -133,21 +135,26 @@ public class Task02 extends FormulaTestBase {
                 .statusCode(200)
                 .contentType("application/json; charset=utf-8").extract().jsonPath();
 
-        ConstructorPojo constructorPojo = jsonPath.getObject("", ConstructorPojo.class);
+        String total = jsonPath.getString("MRData.total");
+        Assertions.assertEquals("17",total);
 
-        System.out.println("constructorPojo.getMrData().getLimit() = " + constructorPojo.getMrData().getLimit());
-        System.out.println("constructorPojo.getMrData().getTotal() = " + constructorPojo.getMrData().getTotal());
+        String limit = jsonPath.getString("MRData.limit");
+        Assertions.assertEquals("30",limit);
+
+        MRData mrData = jsonPath.getObject("MRData", MRData.class);
+
 
         //- And each constructor has constructorId
-        List<Constructors> constructorsList = constructorPojo.getMrData().getConstructorTable().getConstructorsList();
+        List<Constructors> constructorsList = mrData.getConstructorTable().getConstructorsList();
         for (Constructors eachConstructor : constructorsList) {
 
-            assertTrue(!eachConstructor.getConstructorId().isEmpty());
+            Assertions.assertNotNull(eachConstructor.getConstructorId());
         }
         //- And constructor has name
 
         for (Constructors eachConstructor : constructorsList) {
-            assertFalse(eachConstructor.getName().isEmpty());
+
+            Assertions.assertNotNull(eachConstructor.getName());
         }
 
         //- And size of constructor is 17
@@ -161,6 +168,8 @@ public class Task02 extends FormulaTestBase {
         for (Constructors each : constructorsList) {
             constructorsIDs.add(each.getConstructorId());
         }
-        assertThat(constructorsIDs,containsInRelativeOrder("benetton","mercedes","team_lotus"));
+        //assertThat(constructorsIDs,containsInRelativeOrder("benetton","mercedes","team_lotus"));
+        assertThat(constructorsIDs,hasItems("benetton","mercedes","team_lotus"));
+        System.out.println(constructorsIDs);
     }
 }

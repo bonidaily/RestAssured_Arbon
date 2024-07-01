@@ -1,6 +1,7 @@
 package com.cydeo.homeworkApi.homework04;
 
-import com.cydeo.pojo.homework.task1.Driver;
+
+import com.cydeo.pojo.homework.task1.MRData;
 import com.cydeo.utilities.FormulaTestBase;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
@@ -127,15 +128,15 @@ public class Task01 extends FormulaTestBase {
 
         jsonPath.prettyPrint();
 
-        Driver driver = jsonPath.getObject("", Driver.class);
-        System.out.println("driver.getMrData().getTotal() = " + driver.getMrData().getTotal());
+        MRData mrData = jsonPath.getObject("MRData", MRData.class);
+        System.out.println("mrData.getMrData().getTotal() = " + mrData.getTotal());
 
         //- And givenName is Fernando
-        System.out.println("driver.getMrData().getDrivers().getDrivers().get(0).getGivenName() = " + driver.getMrData().getDrivers().getDrivers().get(0).getGivenName());
+        System.out.println("mrData.getMrData().getDrivers().getDrivers().get(0).getGivenName() = " + mrData.getDrivers().getDrivers().get(0).getGivenName());
         //- And familyName is Alonso
-        System.out.println("driver.getMrData().getDrivers().getDrivers().get(0).getFamilyName() = " + driver.getMrData().getDrivers().getDrivers().get(0).getFamilyName());
+        System.out.println("mrData.getMrData().getDrivers().getDrivers().get(0).getFamilyName() = " + mrData.getDrivers().getDrivers().get(0).getFamilyName());
         //- And nationality is Spanish
-        System.out.println("driver.getMrData().getDrivers().getDrivers().get(0).getNationality() = " + driver.getMrData().getDrivers().getDrivers().get(0).getNationality());
+        System.out.println("mrData.getMrData().getDrivers().getDrivers().get(0).getNationality() = " + mrData.getDrivers().getDrivers().get(0).getNationality());
 
 
     }

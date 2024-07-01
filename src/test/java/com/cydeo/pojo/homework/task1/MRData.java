@@ -1,5 +1,6 @@
 package com.cydeo.pojo.homework.task1;
 
+import com.cydeo.pojo.StatusTable;
 import com.cydeo.pojo.homework.task1.DriverTable;
 import com.cydeo.pojo.homework.task2.ConstructorTable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,6 +21,9 @@ public class MRData {
 
     @JsonProperty("ConstructorTable")
     private ConstructorTable constructorTable;
+
+    @JsonProperty("StatusTable")
+    private StatusTable statusTable;
 
 
 
